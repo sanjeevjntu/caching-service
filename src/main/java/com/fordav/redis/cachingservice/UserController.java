@@ -22,11 +22,7 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable String id) {
-        Optional<User> user = userRepository.findById(id);
-        if(user.isEmpty()) {
-            throw new NoSuchElementException("User not found");
-        }
-        return user.get();
+        return userRepository.findById(id).orElseThrow();
     }
 
     @PutMapping("/users/{id}")
