@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
@@ -41,7 +39,7 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     public void delete(@PathVariable String id) {
-         userRepository.deleteById(id);
+        userRepository.deleteById(id);
     }
 
 }
