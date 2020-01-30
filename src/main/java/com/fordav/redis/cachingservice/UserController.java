@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1")
@@ -20,7 +22,11 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     public User getUserById(@PathVariable String id) {
-        return userRepository.findById(id).get();
+        Optional<User> user = userRepository.findById(id);
+        if(user.isEmpty()) {
+            throw new NoSuchElementException("User not found");
+        }
+        return user.get();
     }
 
     @PutMapping("/users/{id}")
@@ -37,9 +43,9 @@ public class UserController {
         return userList;
     }
 
-
-
-
-
+    @DeleteMapping("/users/{id}")
+    public void delete(@PathVariable String id) {
+         userRepository.deleteById(id);
+    }
 
 }
